@@ -1,2 +1,2 @@
-package com.example.quizzapp.components
+package com.example.quizzapp.navigation.components
 
