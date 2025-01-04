@@ -5,11 +5,49 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.quizzapp.screens.HomeScreen
+import com.example.quizzapp.screens.LoginRegister.RegisterScreen
+import com.example.quizzapp.screens.LoginScreen
 import com.example.quizzapp.screens.QuizDetailScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "home") {
+    NavHost(navController = navController, startDestination = "login") {
+        // Rota para a tela de login
+        composable("login") {
+            LoginScreen(
+                onLoginClick = { email, password ->
+                    // Implementar lógica de autenticação aqui
+                    // Se bem-sucedido, navegar para a tela inicial
+                    navController.navigate("home") {
+                        popUpTo("login") { inclusive = true } // Remove a tela de login da pilha de navegação
+                    }
+                },
+                onRegisterClick = {
+                    // Navegar para a tela de registro
+                    navController.navigate("register")
+                }
+            )
+        }
+
+        // Rota para a tela de registro
+        composable("register") {
+            RegisterScreen(
+                onRegisterClick = { name, email, password ->
+                    // Implementar lógica de registro aqui
+                    // Após o sucesso, navegar para a tela inicial
+                    navController.navigate("home") {
+                        popUpTo("register") { inclusive = true } // Remove a tela de registro da pilha de navegação
+                    }
+                },
+                onBackToLoginClick = {
+                    // Voltar para a tela de login
+                    navController.navigate("login") {
+                        popUpTo("register") { inclusive = true }
+                    }
+                }
+            )
+        }
+
         // Rota para a tela inicial
         composable("home") {
             HomeScreen(navController)
