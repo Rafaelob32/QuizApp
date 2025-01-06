@@ -22,7 +22,7 @@ import com.example.quizzapp.R
 val quizList = listOf(
     Quiz(
         id = 1,
-        title = "Entreteimento",
+        title = "Entretenimento",
         iconRes = R.drawable.pop,
         questionsCount = 30,
         score = 26
