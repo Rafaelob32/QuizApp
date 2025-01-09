@@ -14,276 +14,44 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QuizDetailScreen(quizId: String?) {
-    // Lista de perguntas
+fun QuizDetailScreen(navController: NavController, quizId: String?) {
     val questions = listOf(
-        Question(
-            text = "Qual é o nome da série protagonizada por Eleven?",
-            options = listOf(
-                "Stranger Things",
-                "The Umbrella Academy",
-                "Dark",
-                "Lost",
-                "The Boys",
-                "Supernatural"
-            ),
-            correctAnswer = "Stranger Things"
-        ),
-        Question(
-            text = "Em qual país nasceu o cantor Freddie Mercury?",
-            options = listOf(
-                "Reino Unido",
-                "Índia",
-                "Tanzânia",
-                "Estados Unidos",
-                "África do Sul",
-                "Austrália"
-            ),
-            correctAnswer = "Tanzânia"
-        ),
-        Question(
-            text = "Quem interpretou Coringa no filme 'Batman: O Cavaleiro das Trevas'?",
-            options = listOf(
-                "Heath Ledger",
-                "Joaquin Phoenix",
-                "Jared Leto",
-                "Christian Bale",
-                "Jack Nicholson",
-                "Robert Pattinson"
-            ),
-            correctAnswer = "Heath Ledger"
-        ),
-        Question(
-            text = "Qual é o nome do vilarejo em 'Game of Thrones' que contém o Trono de Ferro?",
-            options = listOf(
-                "Winterfell",
-                "Porto Real",
-                "Braavos",
-                "Meereen",
-                "Dorne",
-                "Pedra do Dragão"
-            ),
-            correctAnswer = "Porto Real"
-        ),
-        Question(
-            text = "Qual artista lançou o álbum 'Lover'?",
-            options = listOf(
-                "Beyoncé",
-                "Lady Gaga",
-                "Taylor Swift",
-                "Adele",
-                "Billie Eilish",
-                "Selena Gomez"
-            ),
-            correctAnswer = "Taylor Swift"
-        ),
-        Question(
-            text = "Quem é o diretor de Titanic?",
-            options = listOf(
-                "James Cameron",
-                "Steven Spielberg",
-                "Martin Scorsese",
-                "Quentin Tarantino",
-                "Ridley Scott",
-                "Christopher Nolan"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Qual é o nome da peça musical de Andrew Lloyd Webber sobre felinos?",
-            options = listOf(
-                "Cats",
-                "Les Misérables",
-                "O Fantasma da Ópera",
-                "Hamilton",
-                "Chicago",
-                " Rent"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Qual é o nome do filme em que a princesa Elsa canta Let It Go?",
-            options = listOf(
-                "Frozen",
-                "Moana",
-                "Valente",
-                "Enrolados",
-                "Encanto",
-                "A Bela e a Fera"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Qual é o nome do filme que venceu o Oscar de Melhor Filme em 2020?",
-            options = listOf(
-                "Parasita",
-                "1917",
-                "Coringa",
-                "Era Uma Vez em Hollywood",
-                "Ford vs Ferrari",
-                "Adoráveis Mulheres"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Qual série foi responsável pela popularidade de Baby Yoda?",
-            options = listOf(
-                "The Mandalorian",
-                "Obi-Wan Kenobi",
-                "Star Wars: Rebels",
-                "Clone Wars",
-                "Andor",
-                "Rogue One"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Qual cantora ficou famosa com a música Rolling in the Deep?",
-            options = listOf(
-                "Adele",
-                "Amy Winehouse",
-                "Taylor Swift",
-                "Rihanna",
-                "Katy Perry",
-                "Alicia Keys"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Em qual filme da Disney aparece o personagem Capitão Gancho?",
-            options = listOf(
-                "Peter Pan",
-                "A Pequena Sereia",
-                "Aladdin",
-                "Moana",
-                "A Bela Adormecida",
-                "Hércules"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Quem dirigiu o filme Pulp Fiction?",
-            options = listOf(
-                "Quentin Tarantino",
-                "Martin Scorsese",
-                "James Cameron",
-                "Francis Ford Coppola",
-                "Stanley Kubrick",
-                "Ridley Scott"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Qual é o nome do vilão de \"O Senhor dos Anéis?",
-            options = listOf(
-                "Saruman",
-                "Sauron",
-                "Smaug",
-                "Morgoth",
-                "Gollum",
-                "Witch-King"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Qual franquia tem os personagens Aragorn, Legolas e Gimli?",
-            options = listOf(
-                "O Senhor dos Anéis",
-                "Game of Thrones",
-                "Harry Potter",
-                "Star Wars",
-                "Duna",
-                "As Crônicas de Nárnia"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Em que ano foi lançado o primeiro filme da franquia 'Star Wars'?",
-            options = listOf(
-                "1975",
-                "1977",
-                "1979",
-                "1980",
-                "1983",
-                "1986"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Qual é o nome da nave principal em Star Trek?",
-            options = listOf(
-                "Millennium Falcon",
-                "Enterprise",
-                "Galactica",
-                "Discovery",
-                "Normandy",
-                "Serenity"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Qual foi o primeiro filme brasileiro indicado ao Oscar de Melhor Filme Estrangeiro?",
-            options = listOf(
-                "Central do Brasil",
-                "O Pagador de Promessas",
-                "Cidade de Deus",
-                "Carandiru",
-                "Tropa de Elite",
-                "Bacurau"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Qual novela brasileira introduziu a icônica personagem Carminha?",
-            options = listOf(
-                "Avenida Brasil",
-                "Mulheres Apaixonadas",
-                "Caminho das Índias",
-                "Laços de Família",
-                "O Clone",
-                "Senhora do Destino"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Qual música da Legião Urbana começa com o verso 'Ainda que eu falasse a língua dos homens'?",
-            options = listOf(
-                "Índios",
-                "Eduardo e Mônica",
-                "Monte Castelo",
-                "Tempo Perdido",
-                "Pais e Filhos",
-                "Será"
-            ),
-            correctAnswer = "James Cameron"
-        ),
-        Question(
-            text = "Qual banda ficou famosa nos anos 90 com a música 'Mulher de Fases'?",
-            options = listOf(
-                "Raimundos",
-                "Charlie Brown Jr.",
-                "Mamonas Assassinas",
-                "O Rappa",
-                "Detonautas",
-                "Skank"
-            ),
-            correctAnswer = "James Cameron"
-        ),
+        Question("Qual é o nome da série protagonizada por Eleven?", listOf("Stranger Things", "Dark", "Lost"), "Stranger Things"),
+        Question("Em qual país nasceu Freddie Mercury?", listOf("Tanzânia", "Índia", "Reino Unido"), "Tanzânia"),
+        Question("Quem pintou a Mona Lisa?", listOf("Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh"), "Leonardo da Vinci"),
+        Question("Qual é o maior planeta do sistema solar?", listOf("Terra", "Júpiter", "Saturno"), "Júpiter"),
+        Question("Quem escreveu 'Dom Casmurro'?", listOf("Machado de Assis", "José de Alencar", "Clarice Lispector"), "Machado de Assis"),
+        Question("Qual é a capital da França?", listOf("Paris", "Londres", "Berlim"), "Paris"),
+        Question("Em que ano o Brasil foi descoberto?", listOf("1500", "1492", "1800"), "1500"),
+        Question("Quem foi o primeiro presidente dos Estados Unidos?", listOf("George Washington", "Abraham Lincoln", "Thomas Jefferson"), "George Washington"),
+        Question("Qual é o símbolo químico do Ouro?", listOf("Au", "Ag", "O"), "Au"),
+        Question("Quem escreveu 'A Moreninha'?", listOf("Joaquim Manuel de Macedo", "José de Alencar", "Machado de Assis"), "Joaquim Manuel de Macedo"),
+        Question("Qual é a montanha mais alta do mundo?", listOf("Everest", "Kilimanjaro", "Aconcágua"), "Everest"),
+        Question("Quem é o autor de 'Harry Potter'?", listOf("J.K. Rowling", "George R.R. Martin", "J.R.R. Tolkien"), "J.K. Rowling"),
+        Question("Quantos estados tem o Brasil?", listOf("26", "27", "28"), "26"),
+        Question("Qual é o maior oceano do mundo?", listOf("Atlântico", "Índico", "Pacífico"), "Pacífico"),
+        Question("Qual a cor do cavalo branco de Napoleão?", listOf("Branco", "Preto", "Cinza"), "Branco"),
+        Question("Qual é o nome do primeiro satélite artificial?", listOf("Sputnik 1", "Apollo 11", "Hubble"), "Sputnik 1"),
+        Question("Quem inventou a lâmpada elétrica?", listOf("Thomas Edison", "Nikola Tesla", "Albert Einstein"), "Thomas Edison"),
+        Question("Qual é o maior animal terrestre?", listOf("Elefante", "Girafa", "Rinoceronte"), "Elefante"),
+        Question("Onde fica a cidade de Petra?", listOf("Jordânia", "Egito", "Turquia"), "Jordânia"),
+        Question("Quem pintou 'O Grito'?", listOf("Edvard Munch", "Vincent van Gogh", "Pablo Picasso"), "Edvard Munch")
     )
 
-    // Estados para controlar a pergunta atual e a opção selecionada
     var currentQuestionIndex by remember { mutableStateOf(0) }
     var selectedOption by remember { mutableStateOf("") }
     var isAnswered by remember { mutableStateOf(false) }
+    var score by remember { mutableStateOf(0) }
     var timer by remember { mutableStateOf(20) }
 
     val currentQuestion = questions[currentQuestionIndex]
 
-    // Lógica para o cronômetro
+    // Lógica do cronômetro
     LaunchedEffect(currentQuestionIndex) {
         timer = 20
         while (timer > 0) {
@@ -291,7 +59,6 @@ fun QuizDetailScreen(quizId: String?) {
             timer -= 1
         }
         if (!isAnswered) {
-            // Se o tempo acabar e a resposta não foi escolhida
             isAnswered = true
             selectedOption = ""
         }
@@ -299,23 +66,10 @@ fun QuizDetailScreen(quizId: String?) {
 
     Scaffold(
         topBar = {
-            // Barra Superior
             CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        text = "Pergunta ${currentQuestionIndex + 1}/${questions.size}",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
-                    )
-                },
+                title = { Text("Pergunta ${currentQuestionIndex + 1}/${questions.size}", fontWeight = FontWeight.Bold) },
                 actions = {
-                    Text(
-                        text = "Sair",
-                        color = Color.Red,
-                        modifier = Modifier
-                            .padding(end = 16.dp)
-                            .clickable { /* Lógica para sair */ }
-                    )
+                    Text("Sair", color = Color.Red, modifier = Modifier.clickable { navController.popBackStack() })
                 }
             )
         }
@@ -328,16 +82,16 @@ fun QuizDetailScreen(quizId: String?) {
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Exibição da pergunta
+            // Pergunta
             Text(
                 text = currentQuestion.text,
                 fontWeight = FontWeight.Bold,
                 fontSize = 22.sp,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            // Exibição do cronômetro
+            // Cronômetro
             Text(
                 text = "Tempo restante: $timer segundos",
                 color = if (timer > 5) Color.Black else Color.Red,
@@ -345,43 +99,38 @@ fun QuizDetailScreen(quizId: String?) {
                 fontWeight = FontWeight.Bold
             )
 
-            // Exibição das opções
+            // Opções
             LazyColumn {
                 items(currentQuestion.options.size) { index ->
                     val option = currentQuestion.options[index]
                     val backgroundColor = when {
-                        isAnswered && option == currentQuestion.correctAnswer -> Color(0xFF4CAF50) // Verde para correta
-                        isAnswered && option == selectedOption && option != currentQuestion.correctAnswer -> Color(0xFFF44336) // Vermelho para errada
+                        isAnswered && option == currentQuestion.correctAnswer -> Color(0xFF4CAF50) // Verde
+                        isAnswered && option == selectedOption && option != currentQuestion.correctAnswer -> Color(0xFFF44336) // Vermelho
                         else -> Color.LightGray
                     }
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(8.dp)
-                            .background(
-                                color = backgroundColor,
-                                shape = RoundedCornerShape(8.dp)
-                            )
+                            .background(backgroundColor, RoundedCornerShape(8.dp))
                             .clickable(enabled = !isAnswered) {
                                 if (!isAnswered) {
                                     selectedOption = option
                                     isAnswered = true
+                                    if (option == currentQuestion.correctAnswer) {
+                                        score++
+                                    }
                                 }
                             }
                             .padding(16.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = option,
-                            color = if (isAnswered) Color.White else Color.Black,
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Medium
-                        )
+                        Text(option, fontSize = 18.sp, color = if (isAnswered) Color.White else Color.Black)
                     }
                 }
             }
 
-            // Botões "Previous" e "Next"
+            // Botões de navegação
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -407,7 +156,8 @@ fun QuizDetailScreen(quizId: String?) {
                             isAnswered = false
                             selectedOption = ""
                         } else {
-                            // Lógica para finalizar o quiz
+                            // Navegar para a tela de resultados
+                            navController.navigate("quizCompletion/$score/${questions.size}")
                         }
                     },
                     enabled = isAnswered
@@ -419,7 +169,7 @@ fun QuizDetailScreen(quizId: String?) {
     }
 }
 
-// Classe de dados para representar perguntas
+// Classe de dados para as perguntas
 data class Question(
     val text: String,
     val options: List<String>,

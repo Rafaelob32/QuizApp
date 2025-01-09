@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.example.quizzapp.screens.HomeScreen
 import com.example.quizzapp.screens.LoginRegister.RegisterScreen
 import com.example.quizzapp.screens.LoginScreen
+import com.example.quizzapp.screens.QuizCompletionScreen
 import com.example.quizzapp.screens.QuizDetailScreen
 
 @Composable
@@ -16,14 +17,11 @@ fun AppNavigation(navController: NavHostController) {
         composable("login") {
             LoginScreen(
                 onLoginClick = { email, password ->
-                    // Implementar lógica de autenticação aqui
-                    // Se bem-sucedido, navegar para a tela inicial
                     navController.navigate("home") {
-                        popUpTo("login") { inclusive = true } // Remove a tela de login da pilha de navegação
+                        popUpTo("login") { inclusive = true }
                     }
                 },
                 onRegisterClick = {
-                    // Navegar para a tela de registro
                     navController.navigate("register")
                 }
             )
@@ -33,14 +31,11 @@ fun AppNavigation(navController: NavHostController) {
         composable("register") {
             RegisterScreen(
                 onRegisterClick = { name, email, password ->
-                    // Implementar lógica de registro aqui
-                    // Após o sucesso, navegar para a tela inicial
                     navController.navigate("home") {
-                        popUpTo("register") { inclusive = true } // Remove a tela de registro da pilha de navegação
+                        popUpTo("register") { inclusive = true }
                     }
                 },
                 onBackToLoginClick = {
-                    // Voltar para a tela de login
                     navController.navigate("login") {
                         popUpTo("register") { inclusive = true }
                     }
@@ -56,13 +51,14 @@ fun AppNavigation(navController: NavHostController) {
         // Rota para a tela de detalhes do quiz
         composable("quizDetail/{quizId}") { backStackEntry ->
             val quizId = backStackEntry.arguments?.getString("quizId")
-            QuizDetailScreen(quizId = quizId)
+            QuizDetailScreen(quizId = quizId, navController = navController) // Adicionando navController
         }
 
-        // Rota para a tela de resultados (ajuste conforme necessário)
-        composable("result/{score}") { backStackEntry ->
-            val score = backStackEntry.arguments?.getString("score")?.toIntOrNull() ?: 0
-            // Implementar tela de resultados aqui
+        // Rota para a tela de conclusão do quiz com parâmetros dinâmicos
+        composable("quizCompletion/{score}/{totalQuestions}") { backStackEntry ->
+            val score = backStackEntry.arguments?.getString("score")?.toInt() ?: 0
+            val totalQuestions = backStackEntry.arguments?.getString("totalQuestions")?.toInt() ?: 0
+            QuizCompletionScreen(score, totalQuestions)
         }
     }
 }
