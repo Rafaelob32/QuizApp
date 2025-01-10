@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.quizzapp.screens.HomeScreen
 import com.example.quizzapp.screens.LoginRegister.RegisterScreen
 import com.example.quizzapp.screens.LoginScreen
@@ -49,16 +50,25 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         // Rota para a tela de detalhes do quiz
-        composable("quizDetail/{quizId}") { backStackEntry ->
+        composable(
+            route = "quizDetail/{quizId}",
+            arguments = listOf(navArgument("quizId") { defaultValue = "0" }) // Adicionando argumento padrão
+        ) { backStackEntry ->
             val quizId = backStackEntry.arguments?.getString("quizId")
-            QuizDetailScreen(quizId = quizId, navController = navController) // Adicionando navController
+            QuizDetailScreen(quizId = quizId, navController = navController)
         }
 
-        // Rota para a tela de conclusão do quiz com parâmetros dinâmicos
-        composable("quizCompletion/{score}/{totalQuestions}") { backStackEntry ->
-            val score = backStackEntry.arguments?.getString("score")?.toInt() ?: 0
-            val totalQuestions = backStackEntry.arguments?.getString("totalQuestions")?.toInt() ?: 0
-            QuizCompletionScreen(score, totalQuestions)
+        // Rota para a tela de conclusão do quiz
+        composable(
+            route = "quizCompletion/{score}/{totalQuestions}",
+            arguments = listOf(
+                navArgument("score") { defaultValue = "0" },
+                navArgument("totalQuestions") { defaultValue = "0" }
+            )
+        ) { backStackEntry ->
+            val score = backStackEntry.arguments?.getString("score")?.toIntOrNull() ?: 0
+            val totalQuestions = backStackEntry.arguments?.getString("totalQuestions")?.toIntOrNull() ?: 0
+            QuizCompletionScreen(score = score, totalQuestions = totalQuestions)
         }
     }
 }

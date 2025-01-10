@@ -62,6 +62,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")     // Preview do Compose
     implementation("androidx.compose.material3:material3")       // Material Design 3
     implementation("androidx.navigation:navigation-compose:2.7.6") // Navegação
+    implementation ("androidx.compose.material:material-icons-extended:1.5.0")
+
 
     // Testes
     testImplementation(libs.junit)
